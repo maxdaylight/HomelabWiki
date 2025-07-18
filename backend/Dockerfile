@@ -35,6 +35,7 @@ RUN apk add --no-cache --virtual .build-deps \
     py3-setuptools \
     py3-wheel \
     py3-pip \
+    linux-headers \
     && apk add --no-cache \
     libmagic \
     curl \
@@ -48,7 +49,8 @@ RUN apk add --no-cache --virtual .build-deps \
     openjpeg \
     tiff \
     libwebp \
-    libxcb
+    libxcb \
+    libjpeg-turbo
 
 # Create and activate virtual environment
 RUN python -m venv /opt/venv
@@ -92,6 +94,7 @@ RUN apk add --no-cache \
     tiff \
     libwebp \
     libxcb \
+    libjpeg-turbo \
     curl \
     ca-certificates \
     && apk upgrade --no-cache \
