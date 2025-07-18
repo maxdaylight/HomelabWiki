@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomelabWiki</title>
+    <meta name="description" content="A comprehensive self-hosted Knowledge Base (Wiki) web application designed for homelab environments">
+    <meta name="keywords" content="wiki, knowledge base, homelab, documentation, markdown, ldap, active directory">
+    <meta name="author" content="HomelabWiki Team">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1f2937">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- CSS Reset and Base Styles -->
+    <style>
+        /* Critical CSS for initial render */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            background-color: #f9fafb;
+        }
+        
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        #app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Loading spinner */
+        .loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f9fafb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        /* Error fallback */
+        .error-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f9fafb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .error-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 16px;
+        }
+        
+        .error-message {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+        
+        .error-retry {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .error-retry:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Application Root -->
+    <div id="app">
+        <!-- Loading State -->
+        <div class="loading-container" id="loading">
+            <div>
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Loading HomelabWiki...</div>
+            </div>
+        </div>
+        
+        <!-- Error Fallback -->
+        <div class="error-container" id="error" style="display: none;">
+            <div class="error-title">Unable to Load Application</div>
+            <div class="error-message">
+                There was an error loading HomelabWiki. Please check your internet connection and try again.
+            </div>
+            <button class="error-retry" onclick="location.reload()">
+                Retry
+            </button>
+        </div>
+    </div>
+    
+    <!-- Application Scripts -->
+    <script type="module" src="/src/main.js"></script>
+    
+    <!-- Error Handling -->
+    <script>
+        // Handle module loading errors
+        window.addEventListener('error', function(event) {
+            console.error('Application error:', event.error);
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'flex';
+        });
+        
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'flex';
+        });
+        
+        // Hide loading screen once Vue app is mounted
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                const loading = document.getElementById('loading');
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
