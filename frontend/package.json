@@ -1,0 +1,59 @@
+{
+  "name": "homelab-wiki-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for HomelabWiki - A self-hosted knowledge base",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write \"src/**/*.{vue,js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format:check": "prettier --check \"src/**/*.{vue,js,jsx,ts,tsx,json,css,scss,md}\"",
+    "format:all": "prettier --write \"**/*.{vue,js,jsx,ts,tsx,json,css,scss,md}\"",
+    "lint:fix": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --fix && npm run format"
+  },
+  "dependencies": {
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5",
+    "axios": "^1.5.0",
+    "pinia": "^2.1.6",
+    "prismjs": "^1.29.0",
+    "marked": "^9.1.2",
+    "dompurify": "^3.0.5",
+    "date-fns": "^2.30.0",
+    "lucide-vue-next": "^0.279.0",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vue-multiselect": "^3.0.0-beta.3",
+    "vue-upload-component": "^3.1.18"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.4.0",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-vue": "^1.1.6",
+    "vite": "^4.4.9",
+    "sass": "^1.69.0"
+  },
+  "keywords": [
+    "wiki",
+    "knowledge-base",
+    "homelab",
+    "vue",
+    "markdown",
+    "ldap",
+    "active-directory"
+  ],
+  "author": "HomelabWiki Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/HomelabWiki.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/HomelabWiki/issues"
+  },
+  "homepage": "https://github.com/yourusername/HomelabWiki#readme"
+}

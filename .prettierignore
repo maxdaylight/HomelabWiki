@@ -1,0 +1,80 @@
+# Ignore build output
+**/dist/
+**/build/
+
+# Ignore node_modules
+**/node_modules/
+
+# Ignore package-lock.json
+package-lock.json
+
+# Ignore generated files
+*.min.js
+*.min.css
+
+# Ignore coverage reports
+coverage/
+
+# Ignore logs
+*.log
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Docker files
+**/Dockerfile*
+**/.dockerignore
+
+# Ignore configuration files that shouldn't be formatted
+**/nginx*.conf
+**/vite.config.js
+**/vitest.config.js
+**/jest.config.js
+**/babel.config.js
+**/webpack.config.js
+**/rollup.config.js
+
+# Ignore Python files and virtual environments
+**/__pycache__/
+**/venv/
+**/env/
+**/.venv/
+**/.env
+*.pyc
+*.pyo
+*.pyd
+**/.Python
+
+# Ignore Git files
+.git/
+.gitignore
+.gitmodules
+.gitattributes
+
+# Ignore SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore temporary files
+**/tmp/
+**/temp/
+**/.cache/
+**/.temp/
+
+# Ignore migration files
+**/migrations/
+
+# Ignore specific project files
+backend/instance/
+backend/uploads/
+backend/logs/
+backend/tests/
+.cache_ggshield

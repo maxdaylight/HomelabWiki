@@ -1,0 +1,27 @@
+# Development Override
+# Use: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+version: '3.8'
+
+services:
+  backend:
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=true
+      - LOG_LEVEL=DEBUG
+    volumes:
+      - ./backend:/app  # Mount source code for development
+    ports:
+      - "5000:5000"   # Expose backend directly for debugging
+
+  frontend:
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    volumes:
+      - ./frontend:/app  # Mount source code for development
+    ports:
+      - "3000:3000"   # Development server port
+
+  database:
+    ports:
+      - "5432:5432"   # Expose database for development tools
