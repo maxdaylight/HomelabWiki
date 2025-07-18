@@ -28,6 +28,10 @@ RUN apk add --no-cache --virtual .build-deps \
     tk-dev \
     tcl-dev \
     make \
+    pkgconfig \
+    libwebp-dev \
+    libxcb-dev \
+    libffi-dev \
     && apk add --no-cache \
     libmagic \
     curl \
@@ -39,7 +43,9 @@ RUN apk add --no-cache --virtual .build-deps \
     freetype \
     lcms2 \
     openjpeg \
-    tiff
+    tiff \
+    libwebp \
+    libxcb
 
 # Create and activate virtual environment
 RUN python -m venv /opt/venv
@@ -81,6 +87,8 @@ RUN apk add --no-cache \
     lcms2 \
     openjpeg \
     tiff \
+    libwebp \
+    libxcb \
     curl \
     ca-certificates \
     && apk upgrade --no-cache \
