@@ -31,7 +31,10 @@ RUN apk add --no-cache --virtual .build-deps \
     pkgconfig \
     libwebp-dev \
     libxcb-dev \
-    libffi-dev \
+    libjpeg-turbo-dev \
+    py3-setuptools \
+    py3-wheel \
+    py3-pip \
     && apk add --no-cache \
     libmagic \
     curl \
