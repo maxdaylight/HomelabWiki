@@ -2,7 +2,7 @@
 # Multi-stage build for optimized production image with minimal vulnerabilities
 
 # Build stage using Alpine for minimal attack surface
-FROM python:3.13-alpine3.21 as builder
+FROM python:3.13-alpine3.21 AS builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
