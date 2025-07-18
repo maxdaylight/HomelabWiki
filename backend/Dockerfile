@@ -8,7 +8,7 @@ FROM python:3.13-alpine3.21 AS builder
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Install build dependencies
+# Install build dependencies - All packages needed for Pillow and other Python packages
 RUN apk add --no-cache --virtual .build-deps \
     gcc \
     g++ \
@@ -36,6 +36,7 @@ RUN apk add --no-cache --virtual .build-deps \
     py3-wheel \
     py3-pip \
     linux-headers \
+    build-base \
     && apk add --no-cache \
     libmagic \
     curl \
@@ -58,7 +59,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
     pip install --no-cache-dir -r requirements.txt
 
 # Clean up build dependencies
