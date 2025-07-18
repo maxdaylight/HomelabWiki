@@ -18,12 +18,28 @@ RUN apk add --no-cache --virtual .build-deps \
     openldap-dev \
     cyrus-sasl-dev \
     python3-dev \
+    postgresql-dev \
+    jpeg-dev \
+    zlib-dev \
+    freetype-dev \
+    lcms2-dev \
+    openjpeg-dev \
+    tiff-dev \
+    tk-dev \
+    tcl-dev \
     make \
     && apk add --no-cache \
     libmagic \
     curl \
     libldap \
-    libsasl
+    libsasl \
+    libpq \
+    jpeg \
+    zlib \
+    freetype \
+    lcms2 \
+    openjpeg \
+    tiff
 
 # Create and activate virtual environment
 RUN python -m venv /opt/venv
@@ -58,6 +74,13 @@ RUN apk add --no-cache \
     libsasl \
     libssl3 \
     libmagic \
+    libpq \
+    jpeg \
+    zlib \
+    freetype \
+    lcms2 \
+    openjpeg \
+    tiff \
     curl \
     ca-certificates \
     && apk upgrade --no-cache \

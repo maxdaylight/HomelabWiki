@@ -34,7 +34,7 @@ services:
       dockerfile: Dockerfile
     container_name: homelab-wiki-frontend
     ports:
-      - "80:80"
+      - "8080:8080"
     environment:
       - VITE_API_URL=http://localhost:5000
     networks:

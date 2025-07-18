@@ -20,7 +20,7 @@ services:
     volumes:
       - ./frontend:/app  # Mount source code for development
     ports:
-      - "3000:3000"   # Development server port
+      - "8080:8080"   # Development server port
 
   database:
     ports:
