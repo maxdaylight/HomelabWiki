@@ -1,17 +1,19 @@
 # HomelabWiki Frontend
 
-A modern Vue.js 3 frontend for HomelabWiki - a comprehensive self-hosted Knowledge Base application.
+A modern Vue.js 3 frontend for HomelabWiki - a comprehensive self-hosted Knowledge Base application designed for homelab environments.
 
-## Features
+## 🚀 Features
 
-- **Modern Vue.js 3** with Composition API
-- **Responsive Design** with mobile-first approach
-- **Rich Markdown Editor** with live preview
-- **File Upload & Management** with drag-and-drop support
-- **Full-text Search** across all content
-- **LDAP Authentication** integration
-- **Export Capabilities** (PDF and Markdown)
-- **Dark/Light Theme** support
+- **Modern Vue.js 3** with Composition API and `<script setup>` syntax
+- **Responsive Design** with mobile-first approach using CSS Grid and Flexbox
+- **Rich Markdown Editor** with live preview and syntax highlighting
+- **File Upload & Management** with drag-and-drop support and progress tracking
+- **Full-text Search** with real-time suggestions and filtering
+- **LDAP Authentication** integration with session management
+- **Export Capabilities** (PDF and Markdown) with custom styling
+- **Dark/Light Theme** support with system preference detection
+- **Offline Support** with service workers and caching
+- **Progressive Web App** (PWA) capabilities
 
 ## Development Setup
 

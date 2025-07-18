@@ -25,7 +25,7 @@ This guide provides comprehensive deployment instructions for HomelabWiki in var
 ### Prerequisites
 - Docker Engine 20.10+
 - Docker Compose 2.0+
-- Access to WYK-DC01 Active Directory
+- Access to your Active Directory domain controller
 - 2GB+ RAM, 10GB+ storage
 
 ### 1. Clone and Configure
@@ -75,7 +75,7 @@ docker-compose up -d
 ## Active Directory Integration
 
 ### Required AD Components
-- **Domain Controller**: WYK-DC01 (192.168.0.5)
+- **Domain Controller**: your-domain-controller (IP: your-dc-ip)
 - **Service Account**: LDAP bind account
 - **Security Groups**: 
   - `WikiAdmins` (Full access)
@@ -262,7 +262,7 @@ docker system prune -f
 # Test LDAP connectivity
 docker-compose exec backend python -c "
 import ldap
-conn = ldap.initialize('ldap://WYK-DC01:389')
+conn = ldap.initialize('ldap://your-domain-controller:389')
 conn.simple_bind_s()
 print('LDAP connection successful')
 "

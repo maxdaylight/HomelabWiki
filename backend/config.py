@@ -19,19 +19,19 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # LDAP/Active Directory Configuration
-    LDAP_SERVER = os.environ.get('LDAP_SERVER') or 'WYK-DC01'
+    LDAP_SERVER = os.environ.get('LDAP_SERVER') or 'your-domain-controller'
     LDAP_PORT = int(os.environ.get('LDAP_PORT') or '389')
     LDAP_USE_SSL = os.environ.get('LDAP_USE_SSL', 'false').lower() == 'true'
     LDAP_USE_TLS = os.environ.get('LDAP_USE_TLS', 'true').lower() == 'true'
     
     # LDAP Bind Configuration
-    LDAP_BASE_DN = os.environ.get('LDAP_BASE_DN') or 'DC=homelab,DC=local'
-    LDAP_BIND_DN = os.environ.get('LDAP_BIND_DN') or 'CN=wikisvc,CN=Users,DC=homelab,DC=local'
-    LDAP_BIND_PASSWORD = os.environ.get('LDAP_BIND_PASSWORD') or 'WikiService123!'
+    LDAP_BASE_DN = os.environ.get('LDAP_BASE_DN') or 'DC=yourdomain,DC=local'
+    LDAP_BIND_DN = os.environ.get('LDAP_BIND_DN') or 'CN=wikisvc,CN=Users,DC=yourdomain,DC=local'
+    LDAP_BIND_PASSWORD = os.environ.get('LDAP_BIND_PASSWORD') or 'your-service-password'
     
     # LDAP Search Configuration
-    LDAP_USER_SEARCH_BASE = os.environ.get('LDAP_USER_SEARCH_BASE') or 'CN=Users,DC=homelab,DC=local'
-    LDAP_GROUP_SEARCH_BASE = os.environ.get('LDAP_GROUP_SEARCH_BASE') or 'CN=Groups,DC=homelab,DC=local'
+    LDAP_USER_SEARCH_BASE = os.environ.get('LDAP_USER_SEARCH_BASE') or 'CN=Users,DC=yourdomain,DC=local'
+    LDAP_GROUP_SEARCH_BASE = os.environ.get('LDAP_GROUP_SEARCH_BASE') or 'CN=Groups,DC=yourdomain,DC=local'
     LDAP_USER_OBJECT_CLASS = os.environ.get('LDAP_USER_OBJECT_CLASS') or 'user'
     LDAP_GROUP_OBJECT_CLASS = os.environ.get('LDAP_GROUP_OBJECT_CLASS') or 'group'
     

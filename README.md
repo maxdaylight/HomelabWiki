@@ -30,7 +30,7 @@ HomelabWiki is a secure, user-friendly platform for documentation management in 
                                 ▼
                        ┌─────────────────┐
                        │   LDAP/AD       │
-                       │   (WYK-DC01)    │
+                       │   (Domain Controller) │
                        └─────────────────┘
 ```
 
@@ -51,17 +51,13 @@ HomelabWiki is a secure, user-friendly platform for documentation management in 
    ```bash
    git clone <repository-url>
    cd HomelabWiki
-   cp config/env/.env.example .env
+   cp config/env/.env.local.example .env.local
    ```
 
-2. **Secure Configuration**:
-   ```bash
-   # Generate secure secret key
-   python -c "import secrets; print(secrets.token_hex(32))"
-   
-   # Edit .env with your credentials
-   nano .env
-   ```
+2. **Configure Your Environment**:
+   - Edit `.env.local` with your actual domain controller and credentials
+   - See [Local Environment Configuration Guide](docs/configuration/local-environment.md) for details
+   - Generate secure secret key: `python -c "import secrets; print(secrets.token_hex(32))"`
 
 3. **Deploy**:
    ```bash
@@ -117,7 +113,7 @@ Configure your LDAP/Active Directory connection by setting these environment var
 
 ```bash
 # LDAP Server Configuration
-LDAP_SERVER=WYK-DC01                    # Your domain controller
+LDAP_SERVER=your-domain-controller          # Your domain controller
 LDAP_PORT=389                           # 389 for LDAP, 636 for LDAPS
 LDAP_USE_SSL=false                      # Set to true for LDAPS
 LDAP_USE_TLS=true                       # Enable StartTLS
@@ -145,7 +141,7 @@ LDAP_GROUP_MEMBER_ATTRIBUTE=member
 
 1. **Create a service account** for the wiki application:
    ```powershell
-   # On your domain controller (WYK-DC01)
+   # On your domain controller
    New-ADUser -Name "WikiService" -SamAccountName "wikisvc" -UserPrincipalName "wikisvc@yourdomain.com" -PasswordNeverExpires $true
    ```
 
@@ -318,7 +314,7 @@ HomelabWiki/
    import ldap
    import os
    
-   server = os.getenv('LDAP_SERVER', 'WYK-DC01')
+   server = os.getenv('LDAP_SERVER', 'your-domain-controller')
    port = int(os.getenv('LDAP_PORT', '389'))
    
    try:
@@ -333,14 +329,14 @@ HomelabWiki/
 2. **Check DNS resolution**:
    ```bash
    # Verify domain controller is reachable
-   docker-compose exec backend nslookup WYK-DC01
-   docker-compose exec backend ping -c 3 WYK-DC01
+   docker-compose exec backend nslookup your-domain-controller
+   docker-compose exec backend ping -c 3 your-domain-controller
    ```
 
 3. **Validate LDAP configuration**:
    ```bash
    # Check LDAP search
-   docker-compose exec backend ldapsearch -x -h WYK-DC01 -p 389 -D "CN=wikisvc,CN=Users,DC=yourdomain,DC=com" -w "password" -b "DC=yourdomain,DC=com" "(sAMAccountName=testuser)"
+   docker-compose exec backend ldapsearch -x -h your-domain-controller -p 389 -D "CN=wikisvc,CN=Users,DC=yourdomain,DC=com" -w "password" -b "DC=yourdomain,DC=com" "(sAMAccountName=testuser)"
    ```
 
 **Problem**: User permissions not working correctly
@@ -349,7 +345,7 @@ HomelabWiki/
 1. **Check AD group membership**:
    ```bash
    # Verify user is in correct groups
-   docker-compose exec backend ldapsearch -x -h WYK-DC01 -p 389 -D "CN=wikisvc,CN=Users,DC=yourdomain,DC=com" -w "password" -b "DC=yourdomain,DC=com" "(&(objectClass=group)(member=CN=testuser,CN=Users,DC=yourdomain,DC=com))"
+   docker-compose exec backend ldapsearch -x -h your-domain-controller -p 389 -D "CN=wikisvc,CN=Users,DC=yourdomain,DC=com" -w "password" -b "DC=yourdomain,DC=com" "(&(objectClass=group)(member=CN=testuser,CN=Users,DC=yourdomain,DC=com))"
    ```
 
 2. **Review application logs**:
@@ -471,6 +467,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Comprehensive Guides
 - **[Docker Deployment Guide](docs/deployment/docker.md)** - Complete Docker documentation
 - **[Docker Compose Guide](docs/deployment/docker-compose-guide.md)** - Configuration details
+- **[Local Environment Setup](docs/configuration/local-environment.md)** - Configure your specific environment
 - **[Security Guide](docs/security/credentials.md)** - Credential management
 - **[API Documentation](docs/api/README.md)** - REST API reference
 - **[User Guide](docs/user-guide/README.md)** - End-user documentation
