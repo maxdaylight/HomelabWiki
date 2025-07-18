@@ -4,6 +4,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: homelab-wiki-backend
+    env_file:
+      - .env
     environment:
       - FLASK_ENV=production
       - SECRET_KEY=${SECRET_KEY}
@@ -33,6 +35,8 @@ services:
     container_name: homelab-wiki-frontend
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
       - VITE_API_URL=/api
     networks:
@@ -44,6 +48,8 @@ services:
   database:
     image: postgres:15-alpine
     container_name: homelab-wiki-database
+    env_file:
+      - .env
     environment:
       - POSTGRES_DB=${POSTGRES_DB:-homelab_wiki}
       - POSTGRES_USER=${POSTGRES_USER:-wiki_user}
