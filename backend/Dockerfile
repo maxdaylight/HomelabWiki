@@ -2,7 +2,7 @@
 # Multi-stage build for optimized production image with minimal vulnerabilities
 
 # Build stage using Alpine for minimal attack surface
-FROM python:3.13-alpine3.21 AS builder
+FROM python:3.12-alpine3.21 AS builder
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -39,6 +39,8 @@ RUN apk add --no-cache --virtual .build-deps \
     build-base \
     libxml2-dev \
     libxslt-dev \
+    rust \
+    cargo \
     && apk add --no-cache \
     libmagic \
     curl \
@@ -59,20 +61,21 @@ RUN apk add --no-cache --virtual .build-deps \
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
-# Set Pillow build environment variables
+# Set build environment variables
 ENV LIBRARY_PATH=/lib:/usr/lib
 ENV C_INCLUDE_PATH=/usr/include
+ENV CFLAGS="-Wno-error=implicit-function-declaration"
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip install --no-cache-dir --no-build-isolation -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt
 
 # Clean up build dependencies
 RUN apk del .build-deps
 
 # Production stage - using minimal Alpine with only runtime dependencies
-FROM python:3.13-alpine3.21
+FROM python:3.12-alpine3.21
 
 # Add security labels
 LABEL maintainer="HomelabWiki" \

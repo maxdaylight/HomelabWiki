@@ -36,7 +36,7 @@ HomelabWiki is a secure, user-friendly platform for documentation management in 
 
 ### Technology Stack
 
-- **Backend**: Python 3.13+ with Flask framework
+- **Backend**: Python 3.12+ with Flask framework
 - **Frontend**: Vue.js 3 with modern JavaScript (ES6+)
 - **Database**: SQLite (default) or PostgreSQL
 - **Authentication**: LDAP/Active Directory via python-ldap
