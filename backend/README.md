@@ -53,7 +53,7 @@ backend/
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
-- Python 3.11+
+- Python 3.13+
 - pip and venv
 - Access to LDAP/Active Directory server (your domain controller)
 - SQLite (default) or PostgreSQL

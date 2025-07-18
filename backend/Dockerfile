@@ -37,6 +37,8 @@ RUN apk add --no-cache --virtual .build-deps \
     py3-pip \
     linux-headers \
     build-base \
+    libxml2-dev \
+    libxslt-dev \
     && apk add --no-cache \
     libmagic \
     curl \
@@ -57,10 +59,14 @@ RUN apk add --no-cache --virtual .build-deps \
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
+# Set Pillow build environment variables
+ENV LIBRARY_PATH=/lib:/usr/lib
+ENV C_INCLUDE_PATH=/usr/include
+
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir --no-build-isolation -r requirements.txt
 
 # Clean up build dependencies
 RUN apk del .build-deps
