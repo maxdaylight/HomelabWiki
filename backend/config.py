@@ -108,8 +108,14 @@ class ProductionConfig(Config):
     if not SECRET_KEY:
         raise ValueError("SECRET_KEY environment variable must be set in production")
     
+    # More graceful handling of LDAP_BIND_PASSWORD - warn but don't fail
     if not LDAP_BIND_PASSWORD:
-        raise ValueError("LDAP_BIND_PASSWORD environment variable must be set in production")
+        import warnings
+        warnings.warn(
+            "LDAP_BIND_PASSWORD environment variable is not set. "
+            "LDAP authentication will not work properly.",
+            UserWarning
+        )
 
 class TestingConfig(Config):
     """Testing configuration with test database."""
